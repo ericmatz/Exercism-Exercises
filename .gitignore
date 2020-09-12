@@ -1,0 +1,12 @@
+# Local Config #
+.vscode
+
+
+# Exercism Files
+.exercism
+
+# Javascript Exercism Files #
+.eslintrc
+node_modules
+.npmrc
+babel.config.js
