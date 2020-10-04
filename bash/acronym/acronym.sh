@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-getLetter(){
-    return total+=$(echo "${1:0:1}" | tr '[:lower:]' '[:upper:]')
-}
-
 main(){
     IFS=' '
     read -ra ADDR <<< "$1"
@@ -12,16 +8,25 @@ main(){
             IFS='-'
             read -ra ADDR <<< "$i"
             for j in "${ADDR[@]}"; do
-                total+=$(getLetter ${j})
+                total+=$(echo "${j:0:1}" | tr '[:lower:]' '[:upper:]')
+            done
+        elif [[ "$i" =~ "_" ]]; then
+            IFS='_'
+            read -ra ADDR <<< "$i"
+            for j in "${ADDR[@]}"; do
+                total+=$(echo "${j:0:1}" | tr '[:lower:]' '[:upper:]')
+            done
+        elif [[ "$i" =~ "*" ]]; then
+            IFS='*'
+            read -ra ADDR <<< "$i"
+            for j in "${ADDR[@]}"; do
+                total+=$(echo "${j:0:1}" | tr '[:lower:]' '[:upper:]')
             done
         else
-            total+=$(getLetter ${i})
+            total+=$(echo "${i:0:1}" | tr '[:lower:]' '[:upper:]')
         fi
     done
     echo "$total"
 }
-
-
-
 
 main "$@"
